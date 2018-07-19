@@ -1,0 +1,10 @@
+# Ignore compiled python files
+.pyc
+
+
+# Ignore IDE files
+*.idea
+
+
+# Ignore the virtualenv folder
+venv

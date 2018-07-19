@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" ng-app="WordcountApp">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.5.6/angular.min.js"></script>
+    <script src="{{ url_for('static', filename='main.js') }}"></script>
+</head>
+
+<body ng-controller="WordcountController">
+
+    <p>
+        <form role="form" ng-submit="getResults()">
+            <input type="radio" name="seq-trim" value="Clusters" checked> Clusters<br>
+            <input type="radio" name="seq-trim" value="MaxIdentity"> MaxIdentity<br>
+            <input type="radio" name="seq-trim" value="SelectSeqs"> Select Sequences<br>
+            <input type="radio" name="seq-trim" value="Overlap"> Overlap<br>
+            <button type="submit" class="btn btn-default">Submit</button>
+        </form>
+            
+    </p>
+
+</body>
+
+</html>
