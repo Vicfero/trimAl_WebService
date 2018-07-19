@@ -1,10 +1,10 @@
 # Ignore compiled python files
-.pyc
+*.pyc
 
 
 # Ignore IDE files
 *.idea
-
+*.vscode
 
 # Ignore the virtualenv folder
 venv
