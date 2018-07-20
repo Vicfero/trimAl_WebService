@@ -43,7 +43,7 @@ def upload_file():
             # return redirect(url_for('.uploaded_file', filename=filename, method=request.method))
             task = get_trimal.delay(["-in", os.path.join(app.config['UPLOAD_FOLDER'], filename), "-" + request.form['method']])
             result = result_to_json(task.get())
-            return jsonify({'TaskID': task.id, "Result": result}), 202
+            return jsonify({'TaskID': task.id, "status": task.status}), 202
     return render_template("upload.html")
 
 @upload_bp.route('/uploads/<filename>')
