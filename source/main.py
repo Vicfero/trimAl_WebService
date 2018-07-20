@@ -1,11 +1,13 @@
-from flask import Flask, request, render_template, Blueprint, session, abort, Session, jsonify
+from flask import Flask, request, render_template, Blueprint, session, abort, Session, jsonify, current_app
 from celery import Celery
 from flask_restful import Resource, Api
 from jinja2 import TemplateNotFound
 import subprocess
 
-from tasks import *
-from blueprints.testBP import simple_page
+from tasks import * # pylint: disable=W0614
+
+from blueprints.Blueprints import simple_page
+from blueprints.UploadBlueprint import upload_bp
 
 def make_celery(app):
     celery = Celery(app.import_name,
@@ -18,11 +20,12 @@ def make_celery(app):
         abstract = True
 
         def __call__(self, *args, **kwargs):
-            with app.app_context():
+            with current_app.app_context():
                 return TaskBase.__call__(self, *args, **kwargs)
     celery.Task = ContextTask
     return celery
 
+    
 flask_app = Flask(__name__)
 flask_app.config.update(
     CELERY_BROKER_URL='redis://localhost:6379',
@@ -31,15 +34,15 @@ flask_app.config.update(
 )
 celery = make_celery(flask_app)
 
+UPLOAD_FOLDER = '/home/vfernandez/git/trimalflask/downloads/'
 
-def result_to_json(result):
-    result = result.strip().split(">")[1:]
-    result = {x.split("\n")[0]: "".join(x.split("\n")[1:]) for x in result}
-    return result
+flask_app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
 
 
 if __name__ == "__main__":
     
     flask_app.register_blueprint(simple_page)
+    flask_app.register_blueprint(upload_bp)
 
     flask_app.run()
