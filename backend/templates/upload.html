@@ -1,0 +1,25 @@
+<!doctype html>
+<title>Upload new File</title>
+<link rel=stylesheet type=text/css href="{{ url_for('static', filename='style.css') }}">
+<h1>Upload new File</h1>
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    {% for message in messages %}
+    <br>
+    <a class=flash>{{ message }}</a> 
+    <br>
+    {% endfor %}
+  {% endif %}
+{% endwith %}
+<form method=post enctype=multipart/form-data>
+    <p> <input type=file name=file>
+    </p>
+    <p>
+        <input type="radio" name="method" value="strict" checked> Strict<br>
+        <input type="radio" name="method" value="strictplus"> StrictPlus<br>
+        <input type="radio" name="method" value="gappyout"> Gappyout
+    </p>
+
+    <input type=submit value=Upload>
+    
+</form>

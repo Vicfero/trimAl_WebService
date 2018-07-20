@@ -3,6 +3,7 @@ from celery import Celery
 from flask_restful import Resource, Api
 from jinja2 import TemplateNotFound
 import subprocess
+from flask_cors import CORS, cross_origin
 
 from tasks import * # pylint: disable=W0614
 
@@ -27,6 +28,7 @@ def make_celery(app):
 
     
 flask_app = Flask(__name__)
+CORS(flask_app)
 flask_app.config.update(
     CELERY_BROKER_URL='redis://localhost:6379',
     CELERY_RESULT_BACKEND='redis://localhost:6379',

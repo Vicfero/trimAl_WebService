@@ -4,12 +4,17 @@ from jinja2 import TemplateNotFound
 from werkzeug.utils import secure_filename
 import os
 from flask import send_from_directory
-
+from tasks import get_trimal
 
 ALLOWED_EXTENSIONS = set(['fasta', 'fas'])
 
 upload_bp = Blueprint('upload_bp', __name__,
                         template_folder='templates')
+
+def result_to_json(result):
+    result = result.strip().split(">")[1:]
+    result = {x.split("\n")[0]: "".join(x.split("\n")[1:]) for x in result}
+    return result
 
 
 def allowed_file(filename):
@@ -18,11 +23,12 @@ def allowed_file(filename):
 
 
 @upload_bp.route('/upload', methods=['GET', 'POST'])
+@upload_bp.route('/', methods=['GET', 'POST'])
 def upload_file():
     if request.method == 'POST':
         # check if the post request has the file part
         if 'file' not in request.files:
-            flash('No file part')
+            flash('You must upload a MSA to trim')
             return redirect(request.url)
         file = request.files['file']
         # if user does not select file, browser also
@@ -34,17 +40,12 @@ def upload_file():
             filename = secure_filename(file.filename)
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
             print(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-            return redirect(url_for('.uploaded_file', filename=filename))
-    return '''
-    <!doctype html>
-    <title>Upload new File</title>
-    <h1>Upload new File</h1>
-    <form method=post enctype=multipart/form-data>
-      <p><input type=file name=file>
-         <input type=submit value=Upload>
-    </form>
-    '''
+            # return redirect(url_for('.uploaded_file', filename=filename, method=request.method))
+            task = get_trimal.delay(["-in", os.path.join(app.config['UPLOAD_FOLDER'], filename), "-" + request.form['method']])
+            result = result_to_json(task.get())
+            return jsonify({'TaskID': task.id, "Result": result}), 202
+    return render_template("upload.html")
 
 @upload_bp.route('/uploads/<filename>')
-def uploaded_file(filename):
+def uploaded_file(filename, method):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=True)
