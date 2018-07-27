@@ -1,7 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
-import { HomeBodyComponent } from './home-body/home-body.component';
+import { FileInputComponent } from './file-input/file-input.component';
 import { AlertComponent } from './alert/alert.component';
+import { MainPageComponent } from './main-page/main-page.component';
 
 @NgModule({
   exports: [ RouterModule ]
@@ -10,8 +11,6 @@ import { AlertComponent } from './alert/alert.component';
 export class AppRoutingModule {}
 
 export const routes: Routes = [
-  { path: 'home', component: HomeBodyComponent },
-  { path: '', component: HomeBodyComponent },
-  { path: 'alert', component: AlertComponent }
-
+  { path: 'home', component: MainPageComponent },
+  { path: '', component: MainPageComponent },
 ];

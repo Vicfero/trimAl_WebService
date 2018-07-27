@@ -5,19 +5,23 @@ import { AppComponent } from './app.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
 import { AlertComponent } from './alert/alert.component';
 import { UpperMenuComponent } from './upper-menu/upper-menu.component';
-import { AppRoutingModule } from './/app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { Routes, RouterModule } from '@angular/router';
-import { HomeBodyComponent } from './home-body/home-body.component';
+import { FileInputComponent } from './file-input/file-input.component';
 
 import { routes } from './app-routing.module';
 import { FileUploadModule } from 'ng2-file-upload';
+import { TrimmingOptionsComponent } from './trimming-options/trimming-options.component';
+import { MainPageComponent } from './main-page/main-page.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AlertComponent,
     UpperMenuComponent,
-    HomeBodyComponent
+    FileInputComponent,
+    TrimmingOptionsComponent,
+    MainPageComponent
   ],
   imports: [
     BrowserModule,
