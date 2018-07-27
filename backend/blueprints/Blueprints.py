@@ -51,8 +51,8 @@ simple_page = Blueprint('simple_page', __name__,
 #     return jsonify({'TaskID': task.id, "Result": result}), 202
 
 
-@simple_page.route('/status/<task_id>')
-def taskstatus(task_id):
-    task = get_trimal.AsyncResult(task_id)
+# @simple_page.route('/status/<task_id>')
+# def taskstatus(task_id):
+#     task = get_trimal.AsyncResult(task_id)
 
-    return jsonify({"Result": result_to_json(task.get()), "Status": task.status})
+#     return jsonify({"Result": result_to_json(task.get()), "Status": task.status})

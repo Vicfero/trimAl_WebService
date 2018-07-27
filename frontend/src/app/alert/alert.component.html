@@ -1,0 +1,10 @@
+
+<div>
+  <br>
+    <ngb-alert *ngFor='let al of alerts' [dismissible]="false" (close)="closeAlert(alert)">
+      <strong>Warning!</strong> {{ al }}
+    </ngb-alert>
+  <br>
+</div>
+
+

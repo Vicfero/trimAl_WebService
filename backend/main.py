@@ -3,12 +3,13 @@ from celery import Celery
 from flask_restful import Resource, Api
 from jinja2 import TemplateNotFound
 import subprocess
-from flask_cors import CORS, cross_origin
+from flask_cors import CORS, cross_origin, logging
 
 from tasks import * # pylint: disable=W0614
 
 from blueprints.Blueprints import simple_page
 from blueprints.UploadBlueprint import upload_bp
+
 
 def make_celery(app):
     celery = Celery(app.import_name,
@@ -28,7 +29,7 @@ def make_celery(app):
 
     
 flask_app = Flask(__name__)
-CORS(flask_app)
+
 flask_app.config.update(
     CELERY_BROKER_URL='redis://localhost:6379',
     CELERY_RESULT_BACKEND='redis://localhost:6379',
@@ -40,6 +41,7 @@ UPLOAD_FOLDER = '/home/vfernandez/git/trimalflask/downloads/'
 
 flask_app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
+CORS(flask_app, supports_credentials=True)
 
 
 if __name__ == "__main__":
