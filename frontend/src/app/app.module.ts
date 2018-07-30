@@ -14,6 +14,8 @@ import { FileUploadModule } from 'ng2-file-upload';
 import { TrimmingOptionsComponent } from './trimming-options/trimming-options.component';
 import { MainPageComponent } from './main-page/main-page.component';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
+import { NgStepperModule } from './stepper/stepper.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 @NgModule({
   declarations: [
@@ -30,7 +32,9 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
     AppRoutingModule,
     RouterModule.forRoot(routes),
     FileUploadModule,
-    ScrollToModule.forRoot()
+    ScrollToModule.forRoot(),
+    NgStepperModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
