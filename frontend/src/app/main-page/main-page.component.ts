@@ -7,7 +7,6 @@ import { Component, OnInit } from '@angular/core';
 })
 export class MainPageComponent implements OnInit {
 
-  value: string = 'HELO BABY';
   constructor() { }
 
   ngOnInit() {

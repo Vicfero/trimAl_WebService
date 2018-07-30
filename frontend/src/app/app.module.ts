@@ -13,6 +13,7 @@ import { routes } from './app-routing.module';
 import { FileUploadModule } from 'ng2-file-upload';
 import { TrimmingOptionsComponent } from './trimming-options/trimming-options.component';
 import { MainPageComponent } from './main-page/main-page.component';
+import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { MainPageComponent } from './main-page/main-page.component';
     NgbModule.forRoot(),
     AppRoutingModule,
     RouterModule.forRoot(routes),
-    FileUploadModule
+    FileUploadModule,
+    ScrollToModule.forRoot()
   ],
   providers: [],
   bootstrap: [AppComponent]

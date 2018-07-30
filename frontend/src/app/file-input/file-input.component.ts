@@ -1,11 +1,13 @@
 import { Component, OnInit, Inject } from '@angular/core';
 import { FileUploader, FileItem } from 'ng2-file-upload';
 import { MainPageComponent } from '../main-page/main-page.component';
+import { JumpingServiceService } from '../jumping-service.service';
 
 @Component({
   selector: 'app-file-input',
   templateUrl: './file-input.component.html',
-  styleUrls: ['./file-input.component.css', '../app.component.css']
+  styleUrls: ['./file-input.component.css', '../app.component.css'],
+  providers: [ JumpingServiceService ]
 })
 
 export class FileInputComponent {
@@ -23,7 +25,7 @@ export class FileInputComponent {
     autoUpload: false });
 
   // Constructor that injects the parent module into the child one
-  constructor(@Inject(MainPageComponent) private parent: MainPageComponent) {
+  constructor(@Inject(JumpingServiceService) private jumpingService: JumpingServiceService) {
 
     // Uploader configuration
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
@@ -64,6 +66,11 @@ export class FileInputComponent {
       const F = new File([this.raw_content], 'raw_input.fasta');
       this.uploader.addToQueue([F]);
       this.uploader.uploadAll();
+    } else {
+      return;
     }
+
+    this.jumpingService.triggerScrollTo('destination');
+
   }
 }

@@ -1,58 +1,51 @@
-<div style="background-color: bisque;overflow:auto;" class="containerd">
-  <!-- trimAl Logo -->
-  <div style="text-align:center">
-    <img width="360" height="206"
-    alt="trimAl"
-    src="http://trimal.cgenomics.org/_media/logo3.png?w=180&tok=e218d5">
-  </div>
+<div style="background-color: bisque" class="containerd">
 
-  <!-- Bottom Container -->
-  <div class="border" style="padding: 5vh; width: 100%;  min-height: calc(100% - 206px); overflow:auto; ">
-    <div class="border" style="padding: 2vh; width: 100%;  min-height: 100%; background-color: azure; overflow:auto; ">
-
-      <!-- Input File -->
-      <div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab" style="overflow:auto;text-align: center">
-        <form style="text-align:center; overflow:auto; ">
-          <label for="fileinput" style="text-align: center" >Upload a MSA File</label>
-          <div class="form-group">
-            <!-- File Uploader -->
-            <input ng2FileSelect type="file" [uploader]="uploader" id="fileinput" [attr.disabled]="raw_content == '' ? null : true" (input)="onInput($event)" />
-            <!-- Spacer -->
-            &#160;
-            <!-- Clear Button -->
-            <button type='button' class="btn btn-primary" style="text-align: center;" (click)="resetFile($event);" [attr.hidden]="file == null ? true : null"> Clear File</button>
-          </div>
-        </form>
-      </div>
-
-      <!-- Separator: One line, one label, one line -->
-      <br>
-      <div class="row">
-        <hr class="divider col-xs-2 col-md-4">
-        <label class="col-xs-2 col-md-2" style="text-align: center"> OR </label>
-        <hr class="divider col-xs-2 col-md-4">
-      </div>
-      <br>
-
-      <!-- Raw Input -->
-      <div class="form-group col-xs-8 col-xs-offset-4" style="overflow:auto;text-align: center; margin: 0 auto; float: none;">
-        <label class="col-xs-12 col-xs-offset-4" for="rawinput" style="text-align: center" >Input Raw MSA </label>
-        <textarea style="font-family: monospace; font-size: large; line-height: 2" class="form-control" id="rawinput" rows="3" [attr.disabled]="file == null ? null : true" (input)="onRawInput($event)"></textarea>
-      </div>
-
-      <!-- Separator -->
-      <hr class="divider col-xs-11">
-
-      <!-- Submit button -->
-      <br>
-      <div class="row">
-        <hr class="divider col-xs-4">
-        <button type="submit" class="btn btn-primary col-xs-2" style="text-align: center" [attr.hidden]="file == null && raw_content == '' ? true : null" (click)="submit()"> Upload MSA </button>
-        <hr class="divider col-xs-4">
-      </div>
-      <br>
-
+  <!-- Input File -->
+  <form style="text-align:center; overflow:auto; width: 100%">
+    <div class="form-group">
+      <br><label for="fileinput" style="text-align: center" >Upload a MSA File</label>
+      <!-- File Uploader -->
+      <br><input ng2FileSelect type="file" [uploader]="uploader" id="fileinput" [attr.disabled]="raw_content == '' ? null : true" (input)="onInput($event)" />
+      <!-- Clear Button -->
+      <br [attr.hidden]="file == null ? true : null">
+      <br><button type='button' class="btn btn-primary" style="text-align: center;" (click)="resetFile($event);" [attr.hidden]="file == null ? true : null"> Clear File</button>
     </div>
+  </form>
+
+  <!-- Divisor -->
+  <div class="row" style="width: 100%; margin: 0 auto">
+    <hr class="col-sm-4">
+    <div class="col-sm-2" style="align-content: center; text-align: center">Or</div>
+    <hr class="col-sm-4">
   </div>
 
+  <!-- Raw Input -->
+  <div class="row" style="overflow:auto; margin: 0 auto; float: none;">
+    <label class="col-sm-12" for="rawinput" style="text-align: center" >Input Raw MSA </label>
+    <div class="col-sm-2"></div>
+    <textarea style="font-family: monospace; font-size: large; line-height: 2"
+    class="form-control col-sm-8"
+    id="rawinput"
+    [attr.disabled]="file == null ? null : true"
+    (input)="onRawInput($event)"></textarea>
+    <div class="col-sm-2"></div>
+  </div>
+
+  <!-- Divisor -->
+  <div class="row" style="width: 100%; margin: 0 auto;">
+    <hr class="col-sm-10">
+  </div>
+
+  <!-- Submit button -->
+  <div class="row" style="width: 100%; margin: 0 auto;">
+    <div class="col-md-5 col-xs-4"></div>
+    <button
+    type="submit"
+    class="btn btn-primary col-md-2 col-xs-4"
+    style="text-align: center"
+    [attr.hidden]="file == null && raw_content == '' ? true : null"
+    (click)="submit()"> Upload MSA </button>
+    <div class="col-md-5 col-xs-4"></div>
+    <br>
+  </div>
 </div>

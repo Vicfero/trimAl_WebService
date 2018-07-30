@@ -1,2 +1,17 @@
-<app-upper-menu> </app-upper-menu>
-<router-outlet></router-outlet>
+  <!-- Nav Bar -->
+  <app-upper-menu style="position: fixed; width: 100%; height: 60px; z-index: 200;"> </app-upper-menu>
+
+  <!-- trimAl Logo -->
+  <div style="text-align:center; position: fixed; width: 100%; padding-top: 60px; z-index: 200; height: 360;">
+    <div style="background-color:white; width: 100%; height: 100%;">
+        <img width="360" height="206"
+        alt="trimAl"
+        src="http://trimal.cgenomics.org/_media/logo3.png?w=180&tok=e218d5">
+    </div>
+  </div>
+
+  <!-- Router Outlet -->
+  <div style="padding-top: 266px">
+    <router-outlet></router-outlet>
+  </div>
+

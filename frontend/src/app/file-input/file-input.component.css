@@ -1,5 +1,12 @@
 .containerd {
-  height: calc(100vh - 50px);
+  min-height: calc(100vh - 266px);
+  overflow: auto;
+  width: 100%;
+}
+
+div {
+  padding: 20px;
+  overflow: auto;
 }
 
 #formItem label {
