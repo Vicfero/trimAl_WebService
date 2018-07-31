@@ -1,22 +1,24 @@
-<div style="background-color: white" class="containerd">
+<div style="background-color: white" class="containerd cdiv">
 
-  <div class="row">
+  <div class="row containerd">
 
-    <div class="alert alert-danger col-sm-12" role="alert" style="text-align: center">
+    <!-- <div class="alert alert-danger col-sm-12" role="alert" style="text-align: center">
       Please upload your Multiple Sequence Alignment using one of the following methods
-    </div>
+    </div> -->
+
+    <app-file-upload-status class="col-12 cdiv"> </app-file-upload-status>
 
     <div class="col-sm-6 cdiv">
       <div class="card cdiv" style="height: 100%;">
         <div class="card-body cdiv">
-          <form style="text-align:center; overflow:auto; width: 100%;">
+          <form style="text-align:center; overflow:auto; width: 100%;" id="UploadFileForm" #UploadFileForm>
             <div class="form-group">
               <br><label for="fileinput" style="text-align: center" >Upload a MSA File</label>
               <!-- File Uploader -->
               <br><input ng2FileSelect type="file" [uploader]="uploader" id="fileinput" [attr.disabled]="raw_content == '' ? null : true" (input)="onInput($event)" />
               <!-- Clear Button -->
-              <br [attr.hidden]="file == null ? true : null">
-              <br><button type='button' class="btn btn-danger" style="text-align: center;" (click)="resetFile($event);" [attr.hidden]="file == null ? true : null"> Clear File</button>
+              <br [attr.disabled]="file == null ? true : null">
+              <br><button type='button' class="btn btn-danger" style="text-align: center;" (click)="resetFile($event);" [attr.disabled]="file == null ? true : null"> Clear File</button>
             </div>
           </form>
         </div>
@@ -26,9 +28,6 @@
     <div class="col-sm-6 cdiv">
       <div class="card cdiv" style="height: 100%;">
         <div class="card-body cdiv">
-          <!-- <h5 class="card-title">{{ elem.name }}</h5>
-            <p class="card-text">{{ elem.description }}</p>
-            <a href="#" class="btn btn-primary"> Perfom </a> -->
             <div class="row" style="overflow:auto; margin: 0 auto; float: none;">
               <label class="col-sm-12" for="rawinput" style="text-align: center" >Input Raw MSA </label>
               <div class="col-sm-2"></div>
@@ -36,7 +35,9 @@
               class="form-control col-sm-8"
               id="rawinput"
               [attr.disabled]="file == null ? null : true"
-              (input)="onRawInput($event)"></textarea>
+              (input)="onRawInput($event)"
+              id="RawFileTextArea"
+              #RawFileTextArea></textarea>
               <div class="col-sm-2"></div>
             </div>
           </div>
@@ -51,9 +52,11 @@
       type="submit"
       class="btn btn-primary col-md-2 col-xs-4 btn btn-danger"
       style="text-align: center"
-      [attr.hidden]="file == null && raw_content == '' ? true : null"
+      [attr.disabled]="file == null && raw_content == '' ? true : null"
       (click)="submit()"> Upload MSA </button>
       <div class="col-md-5 col-xs-4"></div>
       <br>
     </div>
+
   </div>
+

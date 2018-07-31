@@ -16,6 +16,7 @@ import { MainPageComponent } from './main-page/main-page.component';
 import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { NgStepperModule } from './stepper/stepper.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FileUploadStatusComponent } from './file-input/file-upload-status/file-upload-status.component';
 
 @NgModule({
   declarations: [
@@ -24,7 +25,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     UpperMenuComponent,
     FileInputComponent,
     TrimmingOptionsComponent,
-    MainPageComponent
+    MainPageComponent,
+    FileUploadStatusComponent,
   ],
   imports: [
     BrowserModule,

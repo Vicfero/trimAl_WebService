@@ -1,15 +1,27 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, AfterViewInit } from '@angular/core';
+import { StepperComponent } from '../stepper/stepper.component';
 
 @Component({
   selector: 'app-main-page',
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.css']
 })
-export class MainPageComponent implements OnInit {
+export class MainPageComponent implements AfterViewInit {
 
-  constructor() { }
+  @ViewChild(StepperComponent) stepper;
 
-  ngOnInit() {
+  constructor() {
   }
 
+  ngAfterViewInit() {
+
+  }
+
+  triggerView(value: boolean) {
+    if (value) {
+      this.stepper.next();
+    } else {
+      this.stepper.prev();
+    }
+  }
 }

@@ -1,44 +1,18 @@
-<!-- <div style="background-color: cadetblue" class="containerd" id="destination">
-  <div style="width: 100%; overflow:auto; margin: 0 auto;" class="row">
-    <div class="card col-md-4 col-sm-12" style="border: 1vh" *ngFor="let elem of methods; let i = index;" >
-      <div class="card-body">
-        <h5 class="card-title">{{ elem.name }}</h5>
-        <p class="card-text">{{ elem.description }}</p>
-        <a href="#" class="btn btn-primary">Perform!</a>
-      </div>
-    </div>
-  </div>
-</div> -->
-
-
-
 <div style="background-color: white" class="containerd cdiv" id="destination">
-
   <div class="row cdiv">
-
-    <div class="cdiv col-sm-12">
-
-
-      <div class="alert alert-danger" role="alert">
-        <br>
-          <div class="progress ">
-              <div class="progress-bar" style="width:40%"> 25% </div>
-            </div>
-        Your file is being uploaded.
-      </div>
-
-    </div>
-
-    <br>
-
-    <div class="col-sm-6 cdiv" *ngFor="let elem of methods; let i = index;">
+    <div class="col-sm-3 cdiv" *ngFor="let elem of methods; let i = index;">
       <div class="card cdiv">
         <div class="card-body cdiv">
           <h5 class="card-title">{{ elem.name }}</h5>
           <p class="card-text">{{ elem.description }}</p>
-          <a href="#" class="btn btn-primary"> Perfom </a>
+          <button (click)="nextStep()" class="btn btn-danger"> Perfom </button>
         </div>
       </div>
     </div>
   </div>
+  <div class="row cdiv">
+    <button *ngIf="stepper._activeStep != 0" (click)="stepper.prev()" class="btn btn-danger col-1"> Back </button>
+  </div>
 </div>
+
+

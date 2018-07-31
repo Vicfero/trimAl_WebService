@@ -4,22 +4,18 @@
 
 
 <ngx-stepper #stepper>
-  <ngx-step [label]="'Setup your account'">
-    <app-file-input></app-file-input>
+  <ngx-step [label]="'Upload your MSA'">
+    <app-file-input [stepper]='stepper'></app-file-input>
   </ngx-step>
-  <ngx-step [label]="'Privacy Policy'">
-    <app-trimming-options></app-trimming-options>
+  <ngx-step [label]="'Select a trimming method'">
+    <app-trimming-options [stepper]='stepper'></app-trimming-options>
   </ngx-step>
-  <ngx-step [label]="'Terms of Service.'">
-    Step 3
+  <ngx-step [label]="'Wait your result'">
+    PROFIT
   </ngx-step>
 </ngx-stepper>
 
 
-<button (click)="stepper.prev()">
-  <-Back
-</button>
+<!-- <button *ngIf="stepper._activeStep != 0" (click)="stepper.prev()" class="btn btn-danger"> Back </button> -->
 
-<button *ngIf="!stepper.lastStepActive" (click)="stepper.next()">
-  Next->
-</button>
+<!-- <button *ngIf="!stepper.lastStepActive" (click)="stepper.next()"> Next-> </button> -->

@@ -1,7 +1,10 @@
-import { Component, OnInit, Inject } from '@angular/core';
+import { Component, OnInit, Inject, Output, EventEmitter, ViewChild, OnChanges, ElementRef, Input } from '@angular/core';
 import { FileUploader, FileItem } from 'ng2-file-upload';
 import { MainPageComponent } from '../main-page/main-page.component';
 import { JumpingServiceService } from '../jumping-service.service';
+import { FileUploadStatusComponent } from './file-upload-status/file-upload-status.component';
+import { debug } from 'util';
+import { StepperComponent } from '../stepper/stepper.component';
 
 @Component({
   selector: 'app-file-input',
@@ -10,7 +13,13 @@ import { JumpingServiceService } from '../jumping-service.service';
   providers: [ JumpingServiceService ]
 })
 
-export class FileInputComponent {
+export class FileInputComponent implements OnInit {
+
+  @Input() stepper: StepperComponent;
+  @ViewChild(FileUploadStatusComponent) statusComponent;
+
+  @ViewChild('UploadFileForm') UploadFileForm: ElementRef;
+  @ViewChild('RawFileTextArea') RawFileTextArea: ElementRef;
 
   URL = 'http://localhost:5000/upload';
 
@@ -22,22 +31,34 @@ export class FileInputComponent {
   uploader: FileUploader = new FileUploader(
   { url: this.URL,
     removeAfterUpload: false,
-    autoUpload: false });
+    autoUpload: false
+  });
 
   // Constructor that injects the parent module into the child one
-  constructor(@Inject(JumpingServiceService) private jumpingService: JumpingServiceService) {
+  constructor() {
 
     // Uploader configuration
     this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
+
       console.log(response);
+
+      // if (response["Error"]) {
+      //   this.statusComponent.changeValue(0, response['Error']);
+      // } else {
+      // }
+      setTimeout(() => {
+        this.stepper.next();
+      }, 1000);
+
     };
 
     this.uploader.onErrorItem = (item: any, response: any, status: any, headers: any) => {
-      console.log(response);
+      this.statusComponent.changeValue(0, response.error);
     };
 
     this.uploader.onProgressItem = (item: FileItem, progress: any) => {
-      console.log(progress);
+      // console.log(progress);
+      this.statusComponent.changeValue(progress);
     };
 
   }
@@ -45,7 +66,7 @@ export class FileInputComponent {
   /// Reset File, used by the InputFile
   resetFile(event) {
     this.file = null;
-    event.target.form.reset();
+    this.UploadFileForm.nativeElement.reset();
   }
 
   /// Save the input file
@@ -69,8 +90,12 @@ export class FileInputComponent {
     } else {
       return;
     }
-
-    this.jumpingService.triggerScrollTo('destination');
-
   }
+
+  ngOnInit(): void {
+    setTimeout(() => {
+      this.stepper.next();
+    }, 1000);
+  }
+
 }
