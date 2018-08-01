@@ -1,62 +1,77 @@
 <div style="background-color: white" class="containerd cdiv">
 
-  <div class="row containerd">
-
-    <!-- <div class="alert alert-danger col-sm-12" role="alert" style="text-align: center">
-      Please upload your Multiple Sequence Alignment using one of the following methods
-    </div> -->
-
-    <app-file-upload-status class="col-12 cdiv"> </app-file-upload-status>
-
-    <div class="col-sm-6 cdiv">
-      <div class="card cdiv" style="height: 100%;">
-        <div class="card-body cdiv">
-          <form style="text-align:center; overflow:auto; width: 100%;" id="UploadFileForm" #UploadFileForm>
-            <div class="form-group">
-              <br><label for="fileinput" style="text-align: center" >Upload a MSA File</label>
-              <!-- File Uploader -->
-              <br><input ng2FileSelect type="file" [uploader]="uploader" id="fileinput" [attr.disabled]="raw_content == '' ? null : true" (input)="onInput($event)" />
-              <!-- Clear Button -->
-              <br [attr.disabled]="file == null ? true : null">
-              <br><button type='button' class="btn btn-danger" style="text-align: center;" (click)="resetFile($event);" [attr.disabled]="file == null ? true : null"> Clear File</button>
-            </div>
-          </form>
-        </div>
-      </div>
+  <div class="row">
+    <div class="col-2"></div>
+    <div class="col-8" *ngIf="isUploading">
+      <app-file-upload-status> </app-file-upload-status>
     </div>
-
-    <div class="col-sm-6 cdiv">
-      <div class="card cdiv" style="height: 100%;">
-        <div class="card-body cdiv">
-            <div class="row" style="overflow:auto; margin: 0 auto; float: none;">
-              <label class="col-sm-12" for="rawinput" style="text-align: center" >Input Raw MSA </label>
-              <div class="col-sm-2"></div>
-              <textarea style="font-family: monospace; font-size: large; line-height: 2"
-              class="form-control col-sm-8"
-              id="rawinput"
-              [attr.disabled]="file == null ? null : true"
-              (input)="onRawInput($event)"
-              id="RawFileTextArea"
-              #RawFileTextArea></textarea>
-              <div class="col-sm-2"></div>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Submit button -->
-    <div class="row" style="width: 100%; margin: 0 auto;">
-      <div class="col-md-5 col-xs-4"></div>
-      <button
-      type="submit"
-      class="btn btn-primary col-md-2 col-xs-4 btn btn-danger"
-      style="text-align: center"
-      [attr.disabled]="file == null && raw_content == '' ? true : null"
-      (click)="submit()"> Upload MSA </button>
-      <div class="col-md-5 col-xs-4"></div>
-      <br>
-    </div>
-
+    <div class="col-2"></div>
   </div>
+
+  <form method="POST" style="width: 100%; background-color: white" id="UploadFileForm" #UploadFileForm class="col-12">
+
+    <!-- Input File -->
+    <span class="row">
+      <div class="col-2"></div>
+      <span class="col-8">
+        <span class="row">
+          <label for="rawinput" style="text-align: center" class="col-12">Input Raw MSA </label>
+          <textarea style="font-family: monospace; font-size: large; line-height: 2"
+          class="form-control col-12"
+          [attr.disabled]="file == null ? null : true"
+          (input)="onRawInput($event)"
+          id="RawFileTextArea"
+          #RawFileTextArea></textarea>
+        </span>
+      </span>
+      <div class="col-2"></div>
+    </span>
+
+
+    <!-- File Uploader -->
+    <span class="col-12">
+      <span class="row">
+        <label for="fileinput" style="text-align: center" class="col-12">Upload a MSA File</label>
+        <div class="col-5"></div>
+        <input ng2FileSelect
+        class="col-2"
+        type="file"
+        [uploader]="uploader"
+        id="fileinput"
+        [attr.disabled]="raw_content == '' ? null : true"
+        (input)="onInput($event)" />
+        <div class="col-5"></div>
+      </span>
+    </span>
+
+    <span class="col-12">
+      <span class="row">
+        <div class="col-2"></div>
+        <!-- Clear Button -->
+        <div style="padding: 5px" class="col-4">
+          <button
+          type='button'
+          class="btn btn-danger"
+          style="text-align: center; display: block;margin-left: auto;margin-right: auto;"
+          (click)="resetForm();"
+          [attr.disabled]="file == null && raw_content == '' ? true : null"> Clear File</button>
+        </div>
+
+
+        <!-- Submit button -->
+        <div style="padding: 5px" class="col-4">
+          <button
+          type="submit"
+          class="btn btn-danger "
+          style="text-align: center; display: block;margin-left: auto;margin-right: auto;"
+          [attr.disabled]="file == null && raw_content == '' ? true : null"
+          (click)="submit()"> Upload MSA </button>
+        </div>
+
+        <div class="col-2"></div>
+      </span>
+    </span>
+
+  </form>
+</div>
 

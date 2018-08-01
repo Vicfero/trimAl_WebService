@@ -1,12 +1,14 @@
-  <div class="alert alert-danger" role="alert" style="height: 20;">
-    <span>
+  <div class="alert alert-danger" role="alert" style="height: 20; width: 100%">
+    <div *ngIf='progress !== ""'>
       <br>
-      <div class="progress">
+      <div class="progress" >
         <div class="progress-bar" [style.width]='progress' style="background-color: red">
           {{ progress }}
         </div>
       </div>
       <hr>
-    </span>
-    {{ message }}
+    </div>
+    <div style="width: 100%; text-align: center">
+      {{ message }}
+    </div>
   </div>

@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild, ElementRef } from '@angular/core';
+import { delay } from 'q';
 
 @Component({
   selector: 'app-file-upload-status',
@@ -12,15 +13,7 @@ export class FileUploadStatusComponent {
   message: String = 'Upload your Multiple Sequence Alignment';
   constructor() { }
 
-  public changeValue(value: number, customMessage?: String) {
-
-    if (customMessage) {
-      this.message = customMessage;
-      this.progress = '0%';
-      console.log('Error Found');
-      return;
-    }
-
+  public changeValue(value: number) {
     if (value === 0) {
       this.message = 'Upload your Multiple Sequence Alignment';
     } else if (value === 100) {
@@ -28,8 +21,16 @@ export class FileUploadStatusComponent {
     } else {
       this.message = 'Your Multiple Sequence Alignment is being uploaded';
     }
-
     this.progress = String(value) + '%';
+  }
+
+  public postError(message: String) {
+    this.progress = '100%';
+    setTimeout(() => {
+      this.progress = '';
+      this.message = message;
+    }, 1000);
+    return;
   }
 
 }

@@ -1,11 +1,8 @@
 from flask import current_app as app
-from flask import Blueprint, render_template, abort, request, jsonify, session, flash, redirect, url_for
-from jinja2 import TemplateNotFound
+from flask import Blueprint, render_template, abort, request, jsonify, session, flash, redirect, url_for, send_from_directory
 from werkzeug.utils import secure_filename
-import os
-from flask import send_from_directory
 from tasks import get_trimal
-from flask_cors import cross_origin
+import os
 import uuid
 import time
 
@@ -25,31 +22,30 @@ def allowed_file(filename):
 
 
 @upload_bp.route('/upload', methods=['POST'])
-@cross_origin(supports_credentials=True)
 def upload_file():
 
     # check if the post request has the file part
     if 'file' not in request.files:
         flash('You must upload a MSA to trim')
-        return jsonify({"Error": "You must upload a MSA" })
+        return jsonify({"Error": "No file was provided. You must upload a MSA with the proper filename and extension" })
 
     # if user does not select file, browser also
     # submit a empty part without filename
     file = request.files['file']
     if file.filename == '':
-        flash('No selected file')
-        return jsonify({"Error": "You must upload a MSA" }), 202
+        return jsonify({"Error": "Filename is empty. You must upload a MSA with the proper filename and extension" }), 400
 
     if not allowed_file(file.filename):
-        flash('File is not allowed')
-        return jsonify({"Error": "File is not allowed" }), 202
+        return jsonify({"Error": "File extension is not allowed.\n Allowed extensions are: " + ", ".join(ALLOWED_EXTENSIONS) }), 400
 
     if file and allowed_file(file.filename):
         filename = secure_filename(file.filename)
+        filename = str(uuid.uuid3(uuid.NAMESPACE_DNS, filename + time.ctime()))
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         # task = get_trimal.delay(["-in", os.path.join(app.config['UPLOAD_FOLDER'], filename), "-" + request.form['method']])
         # print(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        return jsonify({"ID": filename, "UUID": uuid.uuid3(uuid.NAMESPACE_DNS, filename + time.ctime())}), 202
+        print filename + " has been uploaded"
+        return jsonify({"ID": filename }), 202
 
 @upload_bp.route('/downloads/<filename>')
 def uploaded_file(filename, method):

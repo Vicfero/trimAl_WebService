@@ -1,9 +1,4 @@
-<!-- <div id="Scroller">
-
-</div> -->
-
-
-<ngx-stepper #stepper>
+<ngx-stepper #stepper style="background-color: burlywood">
   <ngx-step [label]="'Upload your MSA'">
     <app-file-input [stepper]='stepper'></app-file-input>
   </ngx-step>
@@ -15,7 +10,5 @@
   </ngx-step>
 </ngx-stepper>
 
-
 <!-- <button *ngIf="stepper._activeStep != 0" (click)="stepper.prev()" class="btn btn-danger"> Back </button> -->
-
 <!-- <button *ngIf="!stepper.lastStepActive" (click)="stepper.next()"> Next-> </button> -->

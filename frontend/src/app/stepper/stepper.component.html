@@ -1,24 +1,22 @@
-<div style="position: fixed; width: 100%; z-index: 2000; height: 75px; background-color: white">
+<div style="position: fixed; width: 100%; z-index: 2000; height: 75px; background-color: wheat">
 
   <ngx-step-header
   *ngIf="true"
   [stepList]="steps"
   [activeStep]="activeStep"
   [finished]="activeStep === steps.length"
-  >
-</ngx-step-header>
+  ></ngx-step-header>
 </div>
 
-<div style="padding-top: 50px">
-  <div class="ngx-step-body-wrapper" #stepBodyWrapper >
+<div style="padding-top: 75px; width: 100%;">
+  <div class="ngx-step-body-wrapper" #stepBodyWrapper style="width: 100%;  background-color: blueviolet">
     <ngx-step-body
     *ngFor="let step of steps; let i = index;"
     [template]='step.tpl'
     [active]="activeStep === i"
     [position]="step.position"
     (transitionStart)="onTransitionStart($event)"
-    (transitionDone)="onTransitionDone()">
-  </ngx-step-body>
-</div>
+    (transitionDone)="onTransitionDone()"></ngx-step-body>
+  </div>
 </div>
 
