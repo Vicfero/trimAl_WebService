@@ -9,6 +9,7 @@ from tasks import * # pylint: disable=W0614
 
 from blueprints.Blueprints import simple_page
 from blueprints.UploadBlueprint import upload_bp
+from blueprints.TrimmingBlueprint import trim_bp
 
 
 def make_celery(app):
@@ -22,7 +23,7 @@ def make_celery(app):
         abstract = True
 
         def __call__(self, *args, **kwargs):
-            with current_app.app_context():
+            with app.app_context():
                 return TaskBase.__call__(self, *args, **kwargs)
     celery.Task = ContextTask
     return celery
@@ -48,5 +49,6 @@ if __name__ == "__main__":
     
     flask_app.register_blueprint(simple_page)
     flask_app.register_blueprint(upload_bp)
+    flask_app.register_blueprint(trim_bp)
 
     flask_app.run()

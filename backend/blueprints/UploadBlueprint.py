@@ -22,7 +22,7 @@ def allowed_file(filename):
 
 
 @upload_bp.route('/upload', methods=['POST'])
-def upload_file():
+def upload():
 
     # check if the post request has the file part
     if 'file' not in request.files:
@@ -42,11 +42,13 @@ def upload_file():
         filename = secure_filename(file.filename)
         filename = str(uuid.uuid3(uuid.NAMESPACE_DNS, filename + time.ctime()))
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
-        # task = get_trimal.delay(["-in", os.path.join(app.config['UPLOAD_FOLDER'], filename), "-" + request.form['method']])
-        # print(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         print filename + " has been uploaded"
         return jsonify({"ID": filename }), 202
 
-@upload_bp.route('/downloads/<filename>')
-def uploaded_file(filename, method):
+@upload_bp.route('/download/<filename>')
+def download(filename):
     return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=True)
+
+@upload_bp.route('/exists/<filename>')
+def exists(filename):
+    return jsonify({"Exists": os.path.exists(os.path.join(app.config['UPLOAD_FOLDER'], filename)) })

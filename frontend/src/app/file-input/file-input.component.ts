@@ -4,6 +4,8 @@ import { MainPageComponent } from '../main-page/main-page.component';
 import { FileUploadStatusComponent } from './file-upload-status/file-upload-status.component';
 import { debug } from 'util';
 import { StepperComponent } from '../stepper/stepper.component';
+import { CookieService } from 'ng2-cookies';
+import { TrackerService } from '../tracker.service';
 
 @Component({
   selector: 'app-file-input',
@@ -36,7 +38,7 @@ export class FileInputComponent implements OnInit {
     });
 
     // Constructor that injects the parent module into the child one
-    constructor() {
+    constructor(public localStorage: TrackerService) {
 
       // Uploader configuration
       this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
@@ -46,6 +48,7 @@ export class FileInputComponent implements OnInit {
           return;
         }
         setTimeout(() => {
+          this.localStorage.SaveInLocal('Alignment', res['ID']);
           this.stepper.next();
           this.resetForm();
         }, 1000);
@@ -56,7 +59,6 @@ export class FileInputComponent implements OnInit {
       };
 
       this.uploader.onProgressItem = (item: FileItem, progress: any) => {
-        // console.log(progress);
         this.statusComponent.changeValue(progress);
       };
 
@@ -95,9 +97,11 @@ export class FileInputComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      // setTimeout(() => {
-      //   this.stepper.next();
-      // }, 1000);
+      if (('Alignment' in this.localStorage.data) && this.localStorage.data != null) {
+        setTimeout(() => {
+          this.stepper.next();
+        }, 1000);
+      }
     }
 
   }

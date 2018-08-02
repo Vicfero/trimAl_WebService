@@ -17,6 +17,9 @@ import { ScrollToModule } from '@nicky-lenaers/ngx-scroll-to';
 import { NgStepperModule } from './stepper/stepper.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FileUploadStatusComponent } from './file-input/file-upload-status/file-upload-status.component';
+import { HttpClientModule } from '@angular/common/http';
+import { StorageServiceModule} from 'angular-webstorage-service';
+import { ResultsComponent } from './results/results.component';
 
 @NgModule({
   declarations: [
@@ -27,6 +30,7 @@ import { FileUploadStatusComponent } from './file-input/file-upload-status/file-
     TrimmingOptionsComponent,
     MainPageComponent,
     FileUploadStatusComponent,
+    ResultsComponent,
   ],
   imports: [
     BrowserModule,
@@ -36,7 +40,9 @@ import { FileUploadStatusComponent } from './file-input/file-upload-status/file-
     FileUploadModule,
     ScrollToModule.forRoot(),
     NgStepperModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule,
+    StorageServiceModule
   ],
   providers: [],
   bootstrap: [AppComponent]
