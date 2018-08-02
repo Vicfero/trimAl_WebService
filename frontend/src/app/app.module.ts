@@ -20,6 +20,7 @@ import { FileUploadStatusComponent } from './file-input/file-upload-status/file-
 import { HttpClientModule } from '@angular/common/http';
 import { StorageServiceModule} from 'angular-webstorage-service';
 import { ResultsComponent } from './results/results.component';
+import { CeleryTrimTaskWrapperComponent } from './celery-trim-task-wrapper/celery-trim-task-wrapper.component';
 
 @NgModule({
   declarations: [
@@ -31,6 +32,7 @@ import { ResultsComponent } from './results/results.component';
     MainPageComponent,
     FileUploadStatusComponent,
     ResultsComponent,
+    CeleryTrimTaskWrapperComponent,
   ],
   imports: [
     BrowserModule,

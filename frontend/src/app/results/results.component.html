@@ -1,5 +1,23 @@
-<div style="width: 100%; background-color: white">
+<div style="background-color: white" class="containerd cdiv" id="destination">
+    <div class="row cdiv">
 
-  THIS IS YOUR RESULT
+      <div class="col-sm-3 cdiv" *ngFor="let result of results">
+        <div class="card cdiv" *ngIf="result.taskID !== null">
+          <div class="card-body cdiv">
+            <h5 class="card-title">{{ elem.name }}</h5>
+            <p class="card-text">{{ elem.description }}</p>
+            <app-celery-trim-task-wrapper [taskID]='elem.taskID'></app-celery-trim-task-wrapper>
+            <button *ngIf="elem.taskID == null" (click)="trimBy(elem)" class="btn btn-danger"> Perfom </button>
+          </div>
+        </div>
+      </div>
+    </div>
 
-</div>
+    <div class="row cdiv">
+      <div class="col-3"></div>
+      <button (click)="stepper.prev()" class="btn btn-danger col-2"> Go to Input MSA step </button>
+      <div class="col-2"></div>
+      <button (click)="stepper.next()" class="btn btn-danger col-2"> Go to Results </button>
+      <div class="col-3"></div>
+    </div>
+  </div>

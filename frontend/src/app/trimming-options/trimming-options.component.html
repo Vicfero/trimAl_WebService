@@ -7,12 +7,13 @@
       </div>
     </div>
 
-    <div class="col-sm-3 cdiv" *ngFor="let elem of methods; let i = index;">
+    <div class="col-sm-3 cdiv" *ngFor="let elem of methods">
       <div class="card cdiv">
         <div class="card-body cdiv">
           <h5 class="card-title">{{ elem.name }}</h5>
           <p class="card-text">{{ elem.description }}</p>
-          <button (click)="trimBy(elem.endpoint)" class="btn btn-danger"> Perfom </button>
+          <app-celery-trim-task-wrapper [taskID]='elem.taskID'></app-celery-trim-task-wrapper>
+          <button *ngIf="elem.taskID == null" (click)="trimBy(elem)" class="btn btn-danger"> Perfom </button>
         </div>
       </div>
     </div>

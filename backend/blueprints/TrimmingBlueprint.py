@@ -31,3 +31,9 @@ def trim(method, ID):
         "TaskID": task.id,
         "Method": method
     })
+
+@trim_bp.route('/status/<ID>', methods=['GET'])
+def taskStatus(ID):
+    return jsonify({
+        "Status": get_trimal.AsyncResult(ID).status
+    })

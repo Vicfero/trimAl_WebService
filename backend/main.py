@@ -4,6 +4,7 @@ from flask_restful import Resource, Api
 from jinja2 import TemplateNotFound
 import subprocess
 from flask_cors import CORS, cross_origin, logging
+from flask_pymongo import PyMongo
 
 from tasks import * # pylint: disable=W0614
 
@@ -41,6 +42,10 @@ celery = make_celery(flask_app)
 UPLOAD_FOLDER = '/home/vfernandez/git/trimalflask/downloads/'
 
 flask_app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+
+flask_app.config["MONGO_URI"] = "mongodb://localhost:27017/alignments"
+mongo = PyMongo(flask_app)
+
 
 CORS(flask_app, supports_credentials=True)
 

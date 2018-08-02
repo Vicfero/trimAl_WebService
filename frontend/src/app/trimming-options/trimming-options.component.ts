@@ -1,6 +1,5 @@
 import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 import { StepperComponent } from '../stepper/stepper.component';
-import { CookieService } from 'ng2-cookies';
 import { HttpClient, HttpErrorResponse } from '@angular/common/http';
 import { TrackerService } from '../tracker.service';
 
@@ -26,11 +25,18 @@ export class TrimmingOptionsComponent implements OnInit {
   ngOnInit() {
   }
 
-  trimBy(method: string): void {
-    const vari = this.http.get(`http://127.0.0.1:5000/trim/` + method + '/' + this.localStorage.data['Alignment']);
+  trimBy(option: TrimmingOption): void {
+    const vari = this.http.get(`http://127.0.0.1:5000/trim/` + option.endpoint + '/' + this.localStorage.data['Alignment']);
     vari.subscribe(
-      (res: any) => { console.log('Trim Sucesss'); console.log(res); },
-      (error: any) => { console.log(error); },
+      (res: any) => {
+        console.log('Trim Sucesss');
+        console.log(res);
+        option.taskID = res['TaskID'];
+        option.result = res['ResultID'];
+      },
+      (error: any) => {
+        console.log(error);
+      },
       // () => console.log('Duh')
     );
     return;
@@ -43,11 +49,14 @@ class TrimmingOption {
   endpoint: string;
   from: string;
   result: string;
+  taskID: string;
+
   constructor(name: string, description: string, endpoint: string) {
     this.name = name;
     this.description = description;
     this.endpoint = endpoint;
-    this.from = '';
-    this.result = '';
+    this.from = null;
+    this.result = null;
+    this.taskID = null;
   }
 }

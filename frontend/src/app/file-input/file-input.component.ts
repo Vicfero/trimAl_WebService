@@ -4,7 +4,6 @@ import { MainPageComponent } from '../main-page/main-page.component';
 import { FileUploadStatusComponent } from './file-upload-status/file-upload-status.component';
 import { debug } from 'util';
 import { StepperComponent } from '../stepper/stepper.component';
-import { CookieService } from 'ng2-cookies';
 import { TrackerService } from '../tracker.service';
 
 @Component({
@@ -97,7 +96,7 @@ export class FileInputComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      if (('Alignment' in this.localStorage.data) && this.localStorage.data != null) {
+      if (('Alignment' in this.localStorage.data) && this.localStorage.data['Alignment'] != null) {
         setTimeout(() => {
           this.stepper.next();
         }, 1000);
