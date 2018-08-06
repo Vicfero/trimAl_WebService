@@ -1,8 +1,30 @@
-<div class="col-sm-3 cdiv" >
-  <div class="card cdiv">
-    <div class="card-body cdiv">
-      <h5 class="card-title">{{ id }}</h5>
-      <p class="card-text">{{ method }}</p>
+<div class="card cdiv">
+  <div class="card-body cdiv">
+    <h5 class="card-title">{{ method }}</h5>
+    <p class="card-text">{{ id }}</p>
+    <div class="cdiv row">
+      <div class="border border-danger col-6">
+        <div class="row cdiv">
+          <div class="col-4">
+            <a style="position: relative;
+            float: left;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);"> STATUS: </a>
+          </div>
+          <div class="col-1"></div>
+          <div class="col-4">
+            <a style="position: relative;
+            float: left;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);"> SUCCESS </a>
+          </div>
+        </div>
+      </div>
+
+      <div class="col-1"></div>
+      <button class="btn btn-danger col-4">Download</button>
     </div>
   </div>
 </div>

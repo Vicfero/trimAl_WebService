@@ -18,9 +18,13 @@
       </div>
     </div>
 
-    <span class="row cdiv" *ngFor="let item of this.localStorage.lastUploadedAlignmentExpanded['child'] | DicttoitPipe">
-        <app-result [method]="item"></app-result>
-    </span>
+    <app-result
+    class="col-sm-3 cdiv"
+    *ngFor="let item of this.localStorage.lastUploadedAlignmentExpanded['child'] | DicttoitPipe"
+    [method]="item"
+    [id]="this.localStorage.lastUploadedAlignmentExpanded['child'][item]">
+
+    </app-result>
 
 
   </div>
