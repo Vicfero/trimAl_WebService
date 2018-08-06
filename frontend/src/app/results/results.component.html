@@ -1,23 +1,32 @@
-<div style="background-color: white" class="containerd cdiv" id="destination">
-    <div class="row cdiv">
+<!-- <div style="background-color: white" class="containerd cdiv" id="destination">
+  <div class="cdiv" >
 
-      <div class="col-sm-3 cdiv" *ngFor="let result of results">
-        <div class="card cdiv" *ngIf="result.taskID !== null">
-          <div class="card-body cdiv">
-            <h5 class="card-title">{{ elem.name }}</h5>
-            <p class="card-text">{{ elem.description }}</p>
-            <app-celery-trim-task-wrapper [taskID]='elem.taskID'></app-celery-trim-task-wrapper>
-            <button *ngIf="elem.taskID == null" (click)="trimBy(elem)" class="btn btn-danger"> Perfom </button>
-          </div>
-        </div>
+    <div >
+      {{item}}
+    </div>
+
+  </div>
+</div> -->
+
+
+<div style="background-color: green" class="containerd cdiv" id="destination">
+  <div class="row cdiv" *ngIf="show">
+
+    <div class="col-12">
+      <div class="alert alert-danger" role="alert" style="height: 20; width: 100%">
+        Your alignment ID is: {{ this.lastUploadedAlignment }}
       </div>
     </div>
 
-    <div class="row cdiv">
-      <div class="col-3"></div>
-      <button (click)="stepper.prev()" class="btn btn-danger col-2"> Go to Input MSA step </button>
-      <div class="col-2"></div>
-      <button (click)="stepper.next()" class="btn btn-danger col-2"> Go to Results </button>
-      <div class="col-3"></div>
-    </div>
+    <span class="row cdiv" *ngFor="let item of this.localStorage.lastUploadedAlignmentExpanded['child'] | DicttoitPipe">
+        <app-result [method]="item"></app-result>
+    </span>
+
+
   </div>
+
+  <div class="row cdiv">
+    <div class="col-4"></div>
+    <button (click)="stepper.prev()" class="btn btn-danger col-3"> Go to Trimming step </button>
+  </div>
+</div>

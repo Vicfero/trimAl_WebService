@@ -1,0 +1,17 @@
+.containerd {
+  /* min-height: calc(100vh - 266px); */
+  overflow: auto;
+  width: 100%;
+}
+
+.cdiv {
+  padding: 20px;
+  overflow: auto;
+}
+
+#formItem label {
+  display: block;
+  text-align: center;
+  line-height: 150%;
+  font-size: .85em;
+}

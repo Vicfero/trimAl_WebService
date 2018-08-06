@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, Input } from '@angular/core';
+import { TrackerService } from '../../tracker.service';
 
 @Component({
   selector: 'app-result',
@@ -7,7 +8,12 @@ import { Component, OnInit } from '@angular/core';
 })
 export class ResultComponent implements OnInit {
 
-  constructor() { }
+  @Input() method: string = null;
+  @Input() id: string = null;
+
+  constructor(public localStorage: TrackerService) {
+
+   }
 
   ngOnInit() {
   }

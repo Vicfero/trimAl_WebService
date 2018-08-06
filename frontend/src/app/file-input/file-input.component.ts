@@ -29,6 +29,8 @@ export class FileInputComponent implements OnInit {
   // tslint:disable-next-line:no-inferrable-types
   raw_content: string = '';
 
+  lastUploadedAlignment: string = null;
+
   // ng2-file-uploader
   uploader: FileUploader = new FileUploader(
     { url: this.URL,
@@ -39,6 +41,11 @@ export class FileInputComponent implements OnInit {
     // Constructor that injects the parent module into the child one
     constructor(public localStorage: TrackerService) {
 
+      // Subscribe to Observable lastUploadAlignment
+      this.localStorage.lastUploadedAlignmentObservable.subscribe(value => {
+        this.lastUploadedAlignment = value;
+      });
+
       // Uploader configuration
       this.uploader.onCompleteItem = (item: any, response: any, status: any, headers: any) => {
         const res = JSON.parse(response);
@@ -46,8 +53,8 @@ export class FileInputComponent implements OnInit {
           this.statusComponent.postError(res['Error']);
           return;
         }
+        this.localStorage.AddUploadedAlignment(res['ID']);
         setTimeout(() => {
-          this.localStorage.SaveInLocal('Alignment', res['ID']);
           this.stepper.next();
           this.resetForm();
         }, 1000);
@@ -96,11 +103,7 @@ export class FileInputComponent implements OnInit {
     }
 
     ngOnInit(): void {
-      if (('Alignment' in this.localStorage.data) && this.localStorage.data['Alignment'] != null) {
-        setTimeout(() => {
-          this.stepper.next();
-        }, 1000);
-      }
+
     }
 
   }

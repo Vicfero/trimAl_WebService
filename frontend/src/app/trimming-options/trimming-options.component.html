@@ -3,7 +3,7 @@
 
     <div class="col-12">
       <div class="alert alert-danger" role="alert" style="height: 20; width: 100%">
-        Your alignment ID is: {{ this.localStorage.data['Alignment'] }}
+        Your alignment ID is: {{ this.lastUploadedAlignment }}
       </div>
     </div>
 
@@ -12,8 +12,10 @@
         <div class="card-body cdiv">
           <h5 class="card-title">{{ elem.name }}</h5>
           <p class="card-text">{{ elem.description }}</p>
-          <app-celery-trim-task-wrapper [taskID]='elem.taskID'></app-celery-trim-task-wrapper>
-          <button *ngIf="elem.taskID == null" (click)="trimBy(elem)" class="btn btn-danger"> Perfom </button>
+          <app-celery-trim-task-wrapper [taskID]='elem.taskID'> </app-celery-trim-task-wrapper>
+          <button [attr.disabled]="elem.result != null ? true : null" (click)="trimBy(elem)" class="btn btn-danger">
+            {{ elem.result == null ? "Perform" : "Go to results" }}
+          </button>
         </div>
       </div>
     </div>

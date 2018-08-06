@@ -18,26 +18,30 @@ export class TrimmingOptionsComponent implements OnInit {
     new TrimmingOption('No All Gaps', 'Trims the alignment removing columns that contain only gaps', 'noallgaps'),
   ];
 
-  constructor(public localStorage: TrackerService, private http: HttpClient) {
+  lastUploadedAlignment: string;
 
+  constructor(public localStorage: TrackerService, private http: HttpClient) {
+    // Subscribe to Observable lastUploadAlignment
+    this.localStorage.lastUploadedAlignmentObservable.subscribe(value => {
+      this.lastUploadedAlignment = value;
+      this.methods.forEach(element => {
+        element.result = null;
+      });
+    });
   }
 
   ngOnInit() {
   }
 
   trimBy(option: TrimmingOption): void {
-    const vari = this.http.get(`http://127.0.0.1:5000/trim/` + option.endpoint + '/' + this.localStorage.data['Alignment']);
+    const vari = this.http.get(`http://127.0.0.1:5000/trim/` + option.endpoint + '/' + this.lastUploadedAlignment);
+    option.result = '';
     vari.subscribe(
       (res: any) => {
-        console.log('Trim Sucesss');
-        console.log(res);
-        option.taskID = res['TaskID'];
-        option.result = res['ResultID'];
+        option.result = res;
+        this.localStorage.lastUploadedAlignmentExpanded['child'][option.endpoint] = res['ID'];
+        console.log(this.localStorage.lastUploadedAlignmentExpanded);
       },
-      (error: any) => {
-        console.log(error);
-      },
-      // () => console.log('Duh')
     );
     return;
   }
@@ -47,16 +51,12 @@ class TrimmingOption {
   name: string;
   description: string;
   endpoint: string;
-  from: string;
-  result: string;
-  taskID: string;
+  result: any;
 
   constructor(name: string, description: string, endpoint: string) {
     this.name = name;
     this.description = description;
     this.endpoint = endpoint;
-    this.from = null;
     this.result = null;
-    this.taskID = null;
   }
 }
