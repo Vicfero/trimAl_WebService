@@ -8,6 +8,9 @@
   <ngx-step [label]="'Wait your result'">
     <app-results [stepper]='stepper'></app-results>
   </ngx-step>
+    <ngx-step [label]="'Wait your result'">
+        <app-svg-viewer> </app-svg-viewer>
+    </ngx-step>
 </ngx-stepper>
 
 <!-- <button *ngIf="stepper._activeStep != 0" (click)="stepper.prev()" class="btn btn-danger"> Back </button> -->

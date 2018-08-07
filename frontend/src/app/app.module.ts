@@ -23,6 +23,8 @@ import { ResultsComponent } from './results/results.component';
 import { ResultComponent } from './results/result/result.component';
 import { CeleryTrimTaskWrapperComponent } from './celery-trim-task-wrapper/celery-trim-task-wrapper.component';
 import { DicttoitPipe } from './dicttoit.pipe';
+import { SvgViewerComponent } from './svg-viewer/svg-viewer.component';
+import { InlineSVGModule } from 'ng-inline-svg';
 
 @NgModule({
   declarations: [
@@ -37,6 +39,7 @@ import { DicttoitPipe } from './dicttoit.pipe';
     ResultComponent,
     CeleryTrimTaskWrapperComponent,
     DicttoitPipe,
+    SvgViewerComponent,
   ],
   imports: [
     BrowserModule,
@@ -48,7 +51,8 @@ import { DicttoitPipe } from './dicttoit.pipe';
     NgStepperModule,
     BrowserAnimationsModule,
     HttpClientModule,
-    StorageServiceModule
+    StorageServiceModule,
+    InlineSVGModule.forRoot({ baseUrl: `http://127.0.0.1:5000/download/svg/` })
   ],
   providers: [],
   bootstrap: [AppComponent]

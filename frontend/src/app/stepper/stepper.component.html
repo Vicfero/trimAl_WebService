@@ -1,11 +1,10 @@
 <div style="position: fixed; width: 100%; z-index: 2000; height: 75px; background-color: white">
-
+  
   <ngx-step-header
   *ngIf="true"
   [stepList]="steps"
   [activeStep]="activeStep"
-  [finished]="activeStep === steps.length"
-  ></ngx-step-header>
+  [finished]="activeStep === steps.length"></ngx-step-header>
 </div>
 
 <div style="padding-top: 75px; width: 100%;">

@@ -12,19 +12,22 @@
         <thead>
           <th>Method</th>
           <th>ID</th>
+          <th></th>
           <th></th> 
         </thead>  
         <tbody>
           <tr
           app-result
           [method]="'Original alignment'"
-          [id]="this.lastUploadedAlignment">
+          [id]="this.lastUploadedAlignment"
+          [stepper]='stepper'>
         </tr>
         <tr
         app-result
         *ngFor="let item of localStorage.lastUploadedAlignmentExpanded['child'] | DicttoitPipe"
         [method]="item"
-        [id]="this.localStorage.lastUploadedAlignmentExpanded['child'][item]">
+        [id]="this.localStorage.lastUploadedAlignmentExpanded['child'][item]"
+        [stepper]='stepper'>
       </tr> 
     </tbody>
   </table>
