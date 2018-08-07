@@ -55,7 +55,7 @@ def upload():
 
 @upload_bp.route('/download/<filename>')
 def download(filename):
-    return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=True)
+    return send_from_directory(app.config['UPLOAD_FOLDER'], filename, as_attachment=False)
 
 
 @upload_bp.route('/exists/<filename>')
