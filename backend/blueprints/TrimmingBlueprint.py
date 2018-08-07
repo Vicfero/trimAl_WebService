@@ -7,6 +7,7 @@ import uuid
 import time
 
 from config import mongodb
+import datetime
 
 trim_bp = Blueprint('trim_bp', __name__, template_folder='templates')
 
@@ -40,7 +41,8 @@ def trim(method, ID):
         "Type": method,
         "From": ID,
         "Status": "Queued",
-        "TaskID": task.id
+        "TaskID": task.id,
+        "Creation": datetime.datetime.utcnow()
     })
 
     mongodb.db["files"].find_one_and_update(

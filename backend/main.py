@@ -48,7 +48,7 @@ flask_app.config.update(
 celery = make_celery(flask_app)
 
 # Where to put the files
-flask_app.config['UPLOAD_FOLDER'] = '/home/vfernandez/git/trimalflask/downloads/'
+flask_app.config['UPLOAD_FOLDER'] = '/home/vicfero/git/trimalflask/downloads/'
 
 # CORS to allow localhost development
 CORS(flask_app, supports_credentials=True)

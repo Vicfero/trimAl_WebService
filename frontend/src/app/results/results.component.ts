@@ -12,6 +12,7 @@ import { ResultComponent } from './result/result.component';
 export class ResultsComponent implements OnInit {
   @Input() stepper: StepperComponent;
   show = false;
+  lastUploadedAlignment: string;
 
   ngOnInit() {
   }
@@ -19,7 +20,7 @@ export class ResultsComponent implements OnInit {
     // Subscribe to Observable lastUploadAlignment
     this.localStorage.lastUploadedAlignmentObservable.subscribe(value => {
       this.show = true;
-      console.log(this.localStorage.lastUploadedAlignmentExpanded['child']);
+      this.lastUploadedAlignment = value;
     });
   }
 

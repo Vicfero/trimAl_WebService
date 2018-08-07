@@ -1,6 +1,7 @@
 import os
 import time
 import uuid
+import datetime
 
 from flask import Blueprint, abort
 from flask import current_app as app
@@ -45,7 +46,8 @@ def upload():
             "_id": filename,
             "ID": filename,
             "Type": "Upload",
-            "child": {}
+            "child": {},
+            "Creation": datetime.datetime.utcnow()
             })
         return jsonify({"ID": filename}), 202
     return jsonify({"ERROR": "Unhandled"}), 404
