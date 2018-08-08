@@ -14,9 +14,7 @@ export class FileUploadStatusComponent {
   constructor() { }
 
   public changeValue(value: number) {
-    if (value === 0) {
-      this.message = 'Upload your Multiple Sequence Alignment';
-    } else if (value === 100) {
+    if (value === 100) {
       this.message = 'Your Multiple Sequence Alignment has been uploaded';
     } else {
       this.message = 'Your Multiple Sequence Alignment is being uploaded';

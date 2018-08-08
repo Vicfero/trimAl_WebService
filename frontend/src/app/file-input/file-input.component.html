@@ -31,16 +31,33 @@
     <!-- File Uploader -->
     <span class="col-12">
       <span class="row">
-        <label for="fileinput" style="text-align: center" class="col-12">Upload a MSA File</label>
-        <div class="col-5"></div>
-        <input ng2FileSelect
-        class="col-2"
+        <label for="inputGroupFile01" style="text-align: center" class="col-12">Upload a MSA File</label>
+        <div class="col-4"></div>
+
+        <!-- <input ng2FileSelect
+        class="col-2 custom-file-input"
         type="file"
         [uploader]="uploader"
-        id="fileinput"
         [attr.disabled]="raw_content == '' ? null : true"
-        (input)="onInput($event)" />
-        <div class="col-5"></div>
+        (input)="onInput($event)" /> -->
+
+        <div class="input-group mb-3 col-4">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Upload</span>
+            </div>
+            <div class="custom-file ">
+              <input ng2FileSelect
+              type="file"
+              [uploader]="uploader"
+              [attr.disabled]="raw_content == '' ? null : true"
+              (input)="onInput($event)"
+               id="inputGroupFile01">
+              <label class="custom-file-label" for="inputGroupFile01">{{file == null ? "Choose file" : file.name}}</label>
+            </div>
+          </div>
+
+
+        <div class="col-4"></div>
       </span>
     </span>
 
@@ -74,4 +91,5 @@
 
   </form>
 </div>
+
 

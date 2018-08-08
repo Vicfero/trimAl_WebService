@@ -1,17 +1,19 @@
 <ngx-stepper #stepper style="background-color: burlywood">
+
   <ngx-step [label]="'Upload your MSA'">
     <app-file-input [stepper]='stepper'></app-file-input>
   </ngx-step>
+
   <ngx-step [label]="'Select a trimming method'">
     <app-trimming-options [stepper]='stepper'></app-trimming-options>
   </ngx-step>
+
   <ngx-step [label]="'Wait your result'">
     <app-results [stepper]='stepper'></app-results>
   </ngx-step>
-    <ngx-step [label]="'Wait your result'">
-        <app-svg-viewer> </app-svg-viewer>
-    </ngx-step>
-</ngx-stepper>
 
-<!-- <button *ngIf="stepper._activeStep != 0" (click)="stepper.prev()" class="btn btn-danger"> Back </button> -->
-<!-- <button *ngIf="!stepper.lastStepActive" (click)="stepper.next()"> Next-> </button> -->
+  <ngx-step [label]="'Wait your result'">
+    <app-svg-viewer> </app-svg-viewer>
+  </ngx-step>
+
+</ngx-stepper>

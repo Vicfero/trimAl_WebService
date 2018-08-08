@@ -34,7 +34,7 @@ export class TrackerService {
 
   constructor(@Inject(LOCAL_STORAGE) private storage: WebStorageService, private http: HttpClient) {
     this.uploadedAlignments = this.storage.get('alignments');
-    if (this.uploadedAlignments == null) this.uploadedAlignments = [];
+    if (this.uploadedAlignments == null) { this.uploadedAlignments = []; }
     this.uploadedAlignments.forEach(element => {
       this.ExpandAlignment(element);
     });

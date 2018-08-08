@@ -1,0 +1,11 @@
+<ngx-stepper #stepper style="background-color: burlywood">
+
+  <ngx-step [label]="'Upload your MSA'">
+    <app-file-input [stepper]='stepper'></app-file-input>
+  </ngx-step>
+
+  <ngx-step [label]="'Wait your result'">
+    <app-readal-result [stepper]='stepper'> </app-readal-result>
+  </ngx-step>
+
+</ngx-stepper>

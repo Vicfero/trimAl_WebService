@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { routes } from '../app-routing.module';
+import { routes, endpoints } from '../app-routing.module';
 
 @Component({
   selector: 'app-upper-menu',
@@ -9,6 +9,7 @@ import { routes } from '../app-routing.module';
 export class UpperMenuComponent implements OnInit {
 
   routes = routes;
+  endpoints = endpoints;
 
   constructor() { }
 

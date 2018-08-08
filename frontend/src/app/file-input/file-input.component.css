@@ -15,3 +15,7 @@
   line-height: 150%;
   font-size: .85em;
 }
+
+.custom-file-input:hover::before {
+  border-color: red;
+}

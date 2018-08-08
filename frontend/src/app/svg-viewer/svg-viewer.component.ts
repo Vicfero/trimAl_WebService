@@ -7,7 +7,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class SvgViewerComponent implements OnInit {
 
-  URL = "17c878dc-8a0e-3b45-b8ca-e6aba38eb437"
+  URL = '3bf3132e-5fec-34ce-9299-2654289680d1';
   constructor() { }
 
   ngOnInit() {

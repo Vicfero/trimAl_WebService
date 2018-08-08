@@ -25,6 +25,8 @@ import { CeleryTrimTaskWrapperComponent } from './celery-trim-task-wrapper/celer
 import { DicttoitPipe } from './dicttoit.pipe';
 import { SvgViewerComponent } from './svg-viewer/svg-viewer.component';
 import { InlineSVGModule } from 'ng-inline-svg';
+import { ReadalComponent } from './readal/readal.component';
+import { ReadalResultComponent } from './readal/readal-result/readal-result.component';
 
 @NgModule({
   declarations: [
@@ -40,6 +42,8 @@ import { InlineSVGModule } from 'ng-inline-svg';
     CeleryTrimTaskWrapperComponent,
     DicttoitPipe,
     SvgViewerComponent,
+    ReadalComponent,
+    ReadalResultComponent,
   ],
   imports: [
     BrowserModule,

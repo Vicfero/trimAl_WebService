@@ -10,6 +10,8 @@ from flask import (flash, jsonify, redirect, render_template, request,
 from werkzeug.utils import secure_filename
 
 from config import mongodb
+
+from tasks import run_readAl
 # from tasks import get_trimal
 
 ALLOWED_EXTENSIONS = set(['fasta', 'fas'])
@@ -39,16 +41,20 @@ def upload():
         return jsonify({"Error": "File extension is not allowed.\n Allowed extensions are: " + ", ".join(ALLOWED_EXTENSIONS)}), 400
 
     if file:
-        filename = secure_filename(file.filename)
-        filename = str(uuid.uuid3(uuid.NAMESPACE_DNS, filename + time.ctime()))
+        # filename = secure_filename(file.filename)
+        filename = str(uuid.uuid3(uuid.NAMESPACE_DNS, str(file.filename) + time.ctime()))
+        while mongodb.db["files"].find_one({"ID": filename}) != None:
+            filename = str(uuid.uuid3(uuid.NAMESPACE_DNS, str(filename) + time.ctime()))
         file.save(os.path.join(app.config['UPLOAD_FOLDER'], filename))
         mongodb.db["files"].insert_one({
             "_id": filename,
             "ID": filename,
             "Type": "Upload",
             "child": {},
-            "Creation": datetime.datetime.utcnow()
+            "Creation": datetime.datetime.utcnow(),
+            "Status": "OK"
             })
+        run_readAl.apply_async([filename,])
         return jsonify({"ID": filename}), 202
     return jsonify({"ERROR": "Unhandled"}), 404
 

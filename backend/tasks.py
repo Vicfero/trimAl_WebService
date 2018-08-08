@@ -3,6 +3,7 @@ import subprocess
 import time
 from flask import current_app as fapp
 import os
+import datetime
 
 from config import mongodb
 
@@ -20,23 +21,62 @@ def get_trimal(args):
 
 @app.task()
 def run_trimAl(inID, outID, method):
+
+    mongodb.db["files"].find_one_and_update( { "ID": outID }, { "$set": { "Status": "Running" } } )
+
     err = None
-    args= ["/home/vicfero/git/trimAl/bin/trimal", 
+    args= ["/home/vfernandez/git/trimal/bin/trimal", 
             "-in", os.path.join(fapp.config['UPLOAD_FOLDER'], inID), 
             "-out", os.path.join(fapp.config['UPLOAD_FOLDER'], outID),
             "-svgout", os.path.join(fapp.config['UPLOAD_FOLDER'], outID + ".svg"),
             "-" + method ]
-    with open(os.path.join(fapp.config['UPLOAD_FOLDER'], outID + ".out"), "w") as _out, \
+    try:
+        with open(os.path.join(fapp.config['UPLOAD_FOLDER'], outID + ".out"), "w") as _out, \
             open(os.path.join(fapp.config['UPLOAD_FOLDER'], outID + ".err"), "w") as _err: 
                 p = subprocess.Popen(args, stdout=_out, stderr=_err)
                 p.wait()
                 time.sleep(10)
                 err, res = p.communicate()
+    except:
+        mongodb.db["files"].find_one_and_update( { "ID": outID }, { "$set": { "Status": "Error" } } )
 
-    return err
+    return {"err": err, "res": res}
 
 @app.task()
-def updateStatus(err, __inID, __outID, __method):
+def run_readAl(inID):
+
+    mongodb.db["files"].find_one_and_update( { "ID": inID }, { "$set": { "Status": "Running" } } )
+
+    err = None
+    res = None
+    args= ["/home/vfernandez/git/trimal/bin/readal", 
+            "-in", os.path.join(fapp.config['UPLOAD_FOLDER'], inID), 
+            "-type", "-info", "-format" ]
+    try:
+        with open(os.path.join(fapp.config['UPLOAD_FOLDER'], inID + ".out"), "w") as _out, \
+            open(os.path.join(fapp.config['UPLOAD_FOLDER'], inID + ".err"), "w") as _err: 
+                p = subprocess.Popen(args, stdout=_out, stderr=_err)
+                p.wait()
+                time.sleep(10)
+                err, res = p.communicate()
+
+    except:
+        mongodb.db["files"].find_one_and_update( 
+            { "ID": inID }, 
+            { "$set": { "Status": "Error" } } )
+    
+    else:
+        with open(os.path.join(fapp.config['UPLOAD_FOLDER'], inID + ".out"), "r") as _out:
+            mongodb.db["files"].find_one_and_update( 
+                { "ID": inID }, 
+                { "$set": { "Info": { " ".join(x.split("\t")[:-1])[2:]: x.split("\t")[-1] for x in _out.read().strip().split("\n") }, "Status": "Verified" } } )
+
+    return {"err": err, "res": res}
+
+@app.task()
+def updateStatus(res, __inID, __outID, __method):
+    if res["err"] is not None: return
+
     _outd = []
     _errd = []
     with open(os.path.join(fapp.config['UPLOAD_FOLDER'], __outID + ".out"), "r") as _out:
@@ -49,7 +89,15 @@ def updateStatus(err, __inID, __outID, __method):
     mongodb.db["files"].find_one_and_update(
                     {"ID": __outID},
                     { 
-                        "$set": { "Status": "Completed", "Error" : _errd, "Out": _outd },
-                        "$unset": { "TaskID": "" }
+                        "$set": { 
+                            "Status": "OK", 
+                            "Error" : _errd, 
+                            "Out": _outd, 
+                            "Creation": datetime.datetime.utcnow() 
+                            },
+                        "$unset": { 
+                            "TaskID": "" 
+                            }
                     }
                 )
+                

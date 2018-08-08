@@ -40,7 +40,6 @@ export class TrimmingOptionsComponent implements OnInit {
       (res: any) => {
         option.result = res;
         this.localStorage.lastUploadedAlignmentExpanded['child'][option.endpoint] = res['ID'];
-        console.log(this.localStorage.lastUploadedAlignmentExpanded);
       },
     );
     return;

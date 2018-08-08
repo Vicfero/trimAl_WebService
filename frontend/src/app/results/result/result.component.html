@@ -1,4 +1,4 @@
 <td class="">{{ method }}</td>
-<td class="">{{ id }}</td>
-<td> <button class="btn btn-danger" (click)="download()" [attr.disabled]="null" >Download</button> </td>
+<td class="" style="font-family: monospace">{{ id }}</td>
+<td> <button [attr.disabled]="info.Status === 'OK' ? null: 'true'" class="btn btn-danger" (click)="download()" #downloadButton>Download</button> </td>
 <td> <button class="btn btn-danger" (click)="stepper.next()" [attr.disabled]="null" >See SVG</button> </td>
